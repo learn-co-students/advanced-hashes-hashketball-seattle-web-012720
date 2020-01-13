@@ -88,7 +88,7 @@ def game_hash
         :slam_dunks => 10, 
         }, 
         {
-        :player_name => "DeSanga Diop", 
+        :player_name => "DeSagna Diop", 
         :number => 2,
         :shoe => 14,
         :points => 24,
@@ -133,7 +133,6 @@ def num_points_scored(players_name)
         data.each do |player|
           if player[:player_name] == players_name
             points = player[:points]
-            binding.pry
            return points 
           end 
         end 
@@ -144,7 +143,103 @@ end
 
 
 
+def shoe_size(players_name)
+  game_hash.each do |place, team|
+    team.each do |attribute, data| 
+      if attribute == :players
+        data.each do |player|
+          if player[:player_name] == players_name
+            shoe_size = player[:shoe]
+            return shoe_size
+          end 
+        end 
+      end 
+    end 
+  end 
+end 
+
+def team_colors(team_name) 
+  game_hash.each do |place, team|
+    if team[:team_name] == team_name
+      colors = team[:colors]
+      return colors 
+    end 
+  end 
+end 
 
 
+def team_names
+  array = [] 
+  game_hash.map do |place, team|
+    names = team[:team_name]
+    array << names
+  end 
+  array
+end 
+
+def player_numbers(team_name)
+  array = [] 
+  game_hash.map do |place, team|
+   if team_name == team[:team_name] 
+     team.each do |attribute, data|
+      if attribute == :players
+        data.each do |player|
+          if player[:player_name]
+            number = player[:number]
+           array << number 
+          end 
+        end 
+       end 
+     end 
+   end 
+  end 
+  array
+end 
 
 
+def player_stats(players_name)
+  game_hash.each do |place, team|
+    team.each do |attribute, data| 
+      if attribute == :players
+        data.each do |player| 
+          if players_name == player[:player_name]
+              stats = player.slice(:number,:shoe, :points, :rebounds, :assists, :steals, :blocks, :slam_dunks) 
+              return stats
+          end 
+        end 
+      end 
+    end 
+  end 
+end 
+
+def find_rebounds_by_shoe(shoe_size)
+  game_hash.each do |place, team|
+    team.each do |attribute, data| 
+      if attribute == :players
+        data.each do |player|
+          if shoe_size == player[:shoe]
+            rebounds = player[:rebounds]
+            return rebounds
+          end 
+        end 
+      end 
+    end 
+  end 
+end 
+
+
+def big_shoe_rebounds
+  array = [] 
+ game_hash.each do |place, team| 
+   team.each do |attribute, data| 
+     if attribute == :players
+       data.each do |player|
+         shoe_sizes = player[:shoe]
+         array << shoe_sizes
+       end 
+     end 
+   end 
+ end 
+big_shoe = array.max
+ find_rebounds_by_shoe(big_shoe)
+end 
