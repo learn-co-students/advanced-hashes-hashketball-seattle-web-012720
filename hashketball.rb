@@ -243,3 +243,112 @@ def big_shoe_rebounds
 big_shoe = array.max
  find_rebounds_by_shoe(big_shoe)
 end 
+
+
+
+def most_points_scored
+  array = [] 
+  game_hash.each do |place, team|
+    team.each do |attribute, data| 
+      if attribute == :players
+        data.each do |player|
+          points = player[:points]
+          array << points 
+        end 
+      end 
+    end 
+  end 
+  max_points = array.max 
+  get_player_name_by_points(max_points)
+end 
+
+def get_player_name_by_points(point)
+  game_hash.each do |place, team|
+    team.each do |attribute, data|
+      if attribute == :players
+        data.each do |player| 
+           if point == player[:points]
+            name = player[:player_name]
+            return name
+          end 
+        end 
+      end 
+    end 
+  end 
+end 
+
+def winning_team 
+  total = 0 
+  win_team = ""
+  game_hash.each do |place, team|
+    points_per_team = 0 
+    team_name = game_hash[place][:team_name]
+    team[:players].each do |player|
+      points = player[:points]
+      points_per_team += points
+    end 
+    win_team, total = team_name, points_per_team if points_per_team > total 
+  end 
+  return win_team
+end 
+
+
+def get_player_name_by_name_size(name_size)
+  game_hash.each do |place, team|
+    team.each do |attribute, data|
+      if attribute == :players
+        data.each do |player| 
+           if name_size == player[:player_name].size
+            name = player[:player_name]
+            return name
+          end 
+        end 
+      end 
+    end 
+  end 
+end 
+
+
+def player_with_longest_name 
+  array = []
+  game_hash.each do |place, team|
+    team[:players].each do |player|
+      name_size = player[:player_name].size
+     array << name_size
+    end 
+  end 
+  long_name = array.max 
+  longest_name = get_player_name_by_name_size(long_name)
+  return longest_name
+end 
+
+
+def find_player_by_steals(steals)
+  game_hash.each do |place, team| 
+    team[:players].each do |player| 
+      if steals == player[:steals]
+        return player[:player_name]
+      end 
+    end 
+  end 
+end 
+
+
+def long_name_steals_a_ton?
+  array = []
+  game_hash.each do |place, team|
+    team[:players].each do |player|
+      steals = player[:steals]
+      array << steals 
+    end 
+  end 
+  most_steals = array.max 
+  steals_a_ton = find_player_by_steals(most_steals)
+  if player_with_longest_name == steals_a_ton
+    return true 
+  else 
+  return false 
+  end 
+end 
+  
+
