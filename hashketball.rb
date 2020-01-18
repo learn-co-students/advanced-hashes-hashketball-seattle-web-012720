@@ -127,7 +127,6 @@ end
   
 def most_points_scored
   combined = get_all_players
-  pp combined
   most_points_player = combined.reduce({}) do |memo, (key,value)|
     memo = key if memo  == {}   
     if(memo[:points] < key[:points])
