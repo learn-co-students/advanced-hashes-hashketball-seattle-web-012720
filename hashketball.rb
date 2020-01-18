@@ -5,8 +5,6 @@ def game_hash
   away_head_data = {:side => "away", :team_name => "Charlotte Hornets", :colors => ["Turquoise", "Purple"]}
   main_hash = parse_data(home_head_data, "./HomeData.txt", main_hash)  
   main_hash = parse_data(away_head_data, "./AwayData.txt", main_hash)
-  
-  glob_hash = main_hash
   main_hash
 end
 
