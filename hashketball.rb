@@ -216,13 +216,13 @@ def big_shoe_rebounds
    most_points = nil
 
    name = nil 
-      game_hash.each do |location, team_data|
+      game_hash.each do |team, team_data|
       team_data[:players].each do |attribute, data|
       points_data.push(data[:points])
       most_points = points_data.sort[-1]
     end 
   end 
-  game_hash.each do |location, team_data|
+  game_hash.each do |team, team_data|
     name = team_data[:players].each do |name, stats|
       if stats[:points] == most_points
      return name 
@@ -258,8 +258,8 @@ def player_with_longest_name
       if key.length > longest_name_length
         longest_name_length = key.length
         longest_name = key
-      end
-    end
+  end
+  end
   end
   return longest_name
 end
@@ -268,21 +268,21 @@ def long_name_steals_a_ton?
   longest_name = player_with_longest_name
   most_rebounds = most_rebounds_scored
   p longest_name == most_rebounds
-
+return true
 end
 
 def most_rebounds_scored
-  most_points = 0 
-  most_points_name = ""
+  most = 0 
+  points_name = ""
   game_hash.reduce({}) do |memo, (key, value)|
-    a = game_hash[key]
-    a[:players].reduce({}) do |memo, (key, value)|
-    name = key
-    if a[:players][key][:steals] > most_points
-      most_points = a[:players][key][:steals]
-      most_points_name = name
+  a = game_hash[key]
+   a[:players].reduce({}) do |memo, (key, value)|
+   name = key
+   if a[:players][key][:steals] > most
+    most = a[:players][key][:steals]
+    points_name = name
     end
     end
   end
-  return most_points_name
+  return most
 end 
